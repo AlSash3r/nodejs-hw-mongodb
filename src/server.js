@@ -3,7 +3,7 @@ import cors from 'cors';
 import pino from 'pino-http';
 import dotenv from 'dotenv';
 import contactsRoutes from './routes/contacts.js';
-import initMongoConnection from './db/initMongoConnection.js';
+
 
 dotenv.config();
 
@@ -22,8 +22,6 @@ const setupServer = () => {
   app.use((req, res) => {
     res.status(404).json({ message: 'Not found' });
   });
-
-  initMongoConnection();
 
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
