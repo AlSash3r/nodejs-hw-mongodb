@@ -3,12 +3,14 @@ import cors from 'cors';
 import pino from 'pino-http';
 import dotenv from 'dotenv';
 import contactsRoutes from './routes/contacts.js';
-
+import { errorHandler } from './middlewares/errorHandler.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 dotenv.config();
 
 const setupServer = () => {
   const app = express();
+
   app.use(cors());
   app.use(pino());
   app.use(express.json());
@@ -17,16 +19,12 @@ const setupServer = () => {
     res.send('Server is up and running');
   });
 
-  app.use(contactsRoutes);
+  app.use('/contacts', contactsRoutes);
 
-  app.use((req, res) => {
-    res.status(404).json({ message: 'Not found' });
-  });
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+  return app;
 };
 
 export default setupServer;

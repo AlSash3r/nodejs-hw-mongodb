@@ -1,14 +1,15 @@
 import setupServer from './server.js';
 import initMongoConnection from './db/initMongoConnection.js';
 
-const startApp = async () => {
-  try {
-    await initMongoConnection(); 
-    setupServer(); 
-  } catch (error) {
-    console.error('Failed to start the app:', error.message);
-    process.exit(1);
-  }
+const startServer = async () => {
+  await initMongoConnection();
+
+  const app = setupServer();
+  const PORT = process.env.PORT || 3000;
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 };
 
-startApp();
+startServer();
