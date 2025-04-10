@@ -9,22 +9,22 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 dotenv.config();
 
 const setupServer = () => {
-  const app = express();
+    const app = express();
 
-  app.use(cors());
-  app.use(pino());
-  app.use(express.json());
+    app.use(cors());
+    app.use(pino());
+    app.use(express.json());
 
-  app.get('/', (req, res) => {
-    res.send('Server is up and running');
-  });
+    app.get('/', (req, res) => {
+        res.send('Server is up and running');
+    });
 
-  app.use('/contacts', contactsRoutes);
+    app.use('/contacts', contactsRoutes);
 
-  app.use(notFoundHandler);
-  app.use(errorHandler);
+    app.use(notFoundHandler);
+    app.use(errorHandler);
 
-  return app;
+    return app;
 };
 
 export default setupServer;

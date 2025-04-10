@@ -44,13 +44,11 @@ export async function createContact(req, res, next) {
     const contactData = req.body;
     const newContact = await createContactService(contactData);
 
-    res
-      .status(201)
-      .json({
-        status: 201,
-        message: 'Contact created successfully',
-        data: newContact,
-      });
+    res.status(201).json({
+      status: 201,
+      message: 'Contact created successfully',
+      data: newContact,
+    });
   } catch (error) {
     next(error);
   }
@@ -87,7 +85,10 @@ export async function deleteContact(req, res, next) {
       throw createHttpError(404, 'Contact not found');
     }
 
-    res.status(204).end();
+    res.json({
+      status: 200,
+      message: 'Contact deleted successfully',
+    });
   } catch (error) {
     next(error);
   }
