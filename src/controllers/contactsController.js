@@ -12,7 +12,7 @@ export async function getAllContacts(req, res, next) {
     const contacts = await getAllContactsService();
     res.json({
       status: 200,
-      message: 'Contacts retrieved successfully',
+      message: 'Contacts found successfully',
       data: contacts,
     });
   } catch (error) {
@@ -31,7 +31,7 @@ export async function getContactById(req, res, next) {
 
     res.json({
       status: 200,
-      message: 'Contact retrieved successfully',
+      message: 'Contact found successfully',
       data: contact,
     });
   } catch (error) {
@@ -44,11 +44,13 @@ export async function createContact(req, res, next) {
     const contactData = req.body;
     const newContact = await createContactService(contactData);
 
-    res.status(201).json({
-      status: 201,
-      message: 'Contact created successfully',
-      data: newContact,
-    });
+    res
+      .status(201)
+      .json({
+        status: 201,
+        message: 'Contact created successfully',
+        data: newContact,
+      });
   } catch (error) {
     next(error);
   }
@@ -85,10 +87,7 @@ export async function deleteContact(req, res, next) {
       throw createHttpError(404, 'Contact not found');
     }
 
-    res.json({
-      status: 200,
-      message: 'Contact deleted successfully',
-    });
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
