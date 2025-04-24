@@ -2,14 +2,14 @@ import setupServer from './server.js';
 import initMongoConnection from './db/initMongoConnection.js';
 
 const startServer = async () => {
-    await initMongoConnection();
+  await initMongoConnection();
 
-    const app = setupServer();
-    const PORT = process.env.PORT || 3000;
+  const app = setupServer();
+  const PORT = process.env.PORT || 3000;
 
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 };
 
 startServer();
