@@ -171,7 +171,6 @@ export const logout = async (req, res, next) => {
   }
 };
 
-import { ONE_DAY } from '../constants.js';
 import {
   loginUser,
   refreshUsersSession,
@@ -193,12 +192,12 @@ export const loginUserController = async (req, res) => {
 
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 день в миллисекундах
   });
 
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 день в миллисекундах
   });
 
   res.json({
@@ -211,11 +210,11 @@ export const loginUserController = async (req, res) => {
 export const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 день в миллисекундах
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 день в миллисекундах
   });
 };
 
