@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
+
 const setupServer = () => {
   const app = express();
 
