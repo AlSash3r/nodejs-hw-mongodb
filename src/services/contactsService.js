@@ -15,10 +15,21 @@ export async function getAllContactsService(
   const order = sortOrder === 'desc' ? -1 : 1;
 
   const filter = { userId };
-  if (type) filter.contactType = type;
-  if (isFavourite !== undefined) filter.isFavourite = isFavourite === 'true';
+
+  if (type) {
+    filter.contactType = type;
+  }
+
+  if (isFavourite !== undefined) {
+    if (typeof isFavourite === 'string') {
+      filter.isFavourite = isFavourite.toLowerCase() === 'true';
+    } else if (typeof isFavourite === 'boolean') {
+      filter.isFavourite = isFavourite;
+    }
+  }
 
   const totalItems = await Contact.countDocuments(filter);
+
   const contacts = await Contact.find(filter)
     .sort({ [sortBy]: order })
     .skip(skip)
