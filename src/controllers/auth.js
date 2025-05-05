@@ -1,8 +1,10 @@
+import createHttpError from 'http-errors';
 import bcrypt from 'bcryptjs';
 import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { Session } from '../models/session.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 
 dotenv.config();
 
@@ -26,7 +28,6 @@ export const register = async (req, res, next) => {
 
     res.status(201).json({
       status: 201,
-      message: 'Successfully registered a user!',
       user: { id: newUser._id, name: newUser.name, email: newUser.email },
     });
   } catch (error) {
@@ -171,4 +172,35 @@ export const logout = async (req, res, next) => {
   }
 };
 
+export const resetPasswordFinal = async (req, res, next) => {
+  try {
+    const { token, password } = req.body;
+    const secret = getEnvVar('JWT_SECRET');
+    let payload;
 
+    try {
+      payload = jwt.verify(token, secret);
+    } catch {
+      throw createHttpError(401, 'Token is expired or invalid.');
+    }
+
+    const user = await User.findOne({ email: payload.email });
+    if (!user) {
+      throw createHttpError(404, 'User not found!');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    await Session.deleteMany({ userId: user._id });
+
+    res.status(200).json({
+      status: 200,
+      message: 'Password has been successfully reset.',
+      data: {},
+    });
+  } catch (error) {
+    next(error);
+  }
+};

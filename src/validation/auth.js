@@ -28,3 +28,27 @@ export const validateLogin = validateBody(
     }),
   }),
 );
+
+export const emailSchema = Joi.object({
+  email: Joi.string().email().required().messages({
+    'string.email': 'Please provide a valid email address',
+    'any.required': 'Email is required',
+  }),
+});
+
+export const resetPasswordSchema = Joi.object({
+  newPassword: Joi.string().min(6).required().messages({
+    'string.min': 'Password must be at least 6 characters long',
+    'any.required': 'Password is required',
+  }),
+});
+
+export const resetPasswordFinalSchema = Joi.object({
+  token: Joi.string().required().messages({
+    'any.required': 'Token is required',
+  }),
+  password: Joi.string().min(6).required().messages({
+    'any.required': 'Password is required',
+    'string.min': 'Password must be at least 6 characters long',
+  }),
+});
