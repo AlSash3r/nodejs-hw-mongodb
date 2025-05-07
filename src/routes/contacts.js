@@ -18,6 +18,7 @@ import { upload } from '../middlewares/upload.js';
 
 const router = express.Router();
 
+
 router.use(authMiddleware);
 router.get('/', ctrlWrapper(getAllContacts));
 router.get('/:contactId', isValidId, ctrlWrapper(getContactById));
