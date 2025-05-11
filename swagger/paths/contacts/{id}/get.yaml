@@ -19,6 +19,16 @@ responses:
       application/json:
         schema:
           $ref: '../../../components/schemas/contact.yaml'
+    '400':
+    description: Bad request - Invalid contact ID
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Invalid contact ID"
   '404':
     description: Contact not found
     content:
