@@ -52,4 +52,3 @@ export const resetPasswordFinalSchema = Joi.object({
     'string.min': 'Password must be at least 6 characters long',
   }),
 });
-

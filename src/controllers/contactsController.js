@@ -94,6 +94,7 @@ export async function updateContact(req, res, _next) {
   const contactData = req.body;
   let photoUrl = null;
   const updateData = { ...contactData };
+  console.log('req.file:', req.file); //Видалити
 
   if (req.file) {
     try {

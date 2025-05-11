@@ -1,0 +1,54 @@
+type: object
+properties:
+  _id:
+    type: string
+    description: Contact ID
+    readOnly: true
+  name:
+    type: string
+    description: Contact name
+  phoneNumber:
+    type: string
+    description: Contact phone number
+  email:
+    type: string
+    format: email
+    description: Contact email
+    x-nullable: true
+  isFavourite:
+    type: boolean
+    description: Is the contact a favorite
+    default: false
+  contactType:
+    type: string
+    enum:
+      - work
+      - home
+      - personal
+    description: Contact type
+    default: personal
+  userId:
+    type: string
+    description: ID of the user who owns the contact
+    readOnly: true
+  photo:
+    type: string
+    description: Link to the contact's photo
+    x-nullable: true
+  createdAt:
+    type: string
+    format: date-time
+    description: Date when the contact was created
+    readOnly: true
+  updatedAt:
+    type: string
+    format: date-time
+    description: Date when the contact was last updated
+    readOnly: true
+required:
+  - name
+  - phoneNumber
+  - contactType
+  - _id
+  - userId
+  
