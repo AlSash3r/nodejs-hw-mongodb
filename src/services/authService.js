@@ -29,6 +29,7 @@ export const sendResetPasswordEmail = async (email) => {
     },
   });
 
+
   const mailOptions = {
     from: getEnvVar('SMTP_FROM'),
     to: email,
