@@ -26,28 +26,6 @@
   "paths": {
     "/contacts/{contactId}": {
       "get": {
-        "tags": [
-          "Contacts"
-        ],
-        "summary": "Get contact by ID",
-        "operationId": "getContactById",
-        "description": "Retrieve details of a contact by their unique identifier.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "description": "Unique identifier of the contact",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful response - contact details",
@@ -55,6 +33,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/contact"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid contact ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid contact ID"
+                    }
+                  }
                 }
               }
             }
@@ -187,7 +181,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad request - Invalid ID",
             "content": {
               "application/json": {
                 "schema": {
@@ -278,6 +272,22 @@
         "responses": {
           "204": {
             "description": "Successfully deleted (No Content)"
+          },
+          "400": {
+            "description": "Bad request - Invalid contact ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid contact ID"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized - Authentication required",
@@ -557,7 +567,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad request - Invalid ID",
             "content": {
               "application/json": {
                 "schema": {

@@ -15,7 +15,7 @@ parameters:
 responses:
   '204':
     description: Successfully deleted (No Content)
-    '400':
+  '400':
     description: Bad request - Invalid contact ID
     content:
       application/json:
