@@ -51,7 +51,7 @@ responses:
         schema:
           $ref: '../../../components/schemas/contact.yaml'
   '400':
-    description: Bad request - Invalid ID
+    description: Bad request - Invalid ID or request body
     content:
       application/json:
         schema:

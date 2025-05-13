@@ -26,6 +26,28 @@
   "paths": {
     "/contacts/{contactId}": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Get contact by ID",
+        "operationId": "getContactById",
+        "description": "Retrieve details of a contact by their unique identifier.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier of the contact",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful response - contact details",
@@ -181,7 +203,7 @@
             }
           },
           "400": {
-            "description": "Bad request - Invalid ID",
+            "description": "Bad request - Invalid ID or request body",
             "content": {
               "application/json": {
                 "schema": {
@@ -567,7 +589,7 @@
             }
           },
           "400": {
-            "description": "Bad request - Invalid ID",
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
